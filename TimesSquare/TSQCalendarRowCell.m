@@ -102,8 +102,6 @@
     [self.contentView addSubview:self.selectedButton];
     [self configureButton:self.selectedButton];
     
-    [self.selectedButton setAccessibilityTraits:UIAccessibilityTraitSelected|self.selectedButton.accessibilityTraits];
-    
     self.selectedButton.enabled = NO;
     [self.selectedButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.selectedButton setBackgroundImage:[self selectedBackgroundImage] forState:UIControlStateNormal];
@@ -117,13 +115,6 @@
 {
     _beginningDate = date;
     
-    if (!self.dayButtons) {
-        [self createDayButtons];
-        [self createNotThisMonthButtons];
-        [self createTodayButton];
-        [self createSelectedButton];
-    }
-
     NSDateComponents *offset = [NSDateComponents new];
     offset.day = 1;
 
@@ -198,6 +189,13 @@
 
 - (void)layoutSubviews;
 {
+    if (!self.dayButtons) {
+        [self createDayButtons];
+        [self createNotThisMonthButtons];
+        [self createTodayButton];
+        [self createSelectedButton];
+    }
+    
     if (!self.backgroundView) {
         [self setBottomRow:NO];
     }
